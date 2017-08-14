@@ -20,7 +20,8 @@ def scrape(url):
     for x in pre:
         code.append(x.findAll("code"))
     for x in code:
-        print x
+        for i in x:
+            print x.text()
     return None
 
 search = raw_input("enter search string")
