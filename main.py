@@ -18,6 +18,9 @@ def scrape(url):#extracting data
     soup = BeautifulSoup(url_text_data,'html.parser')
     answer_element = soup.find("div", { "class" : "accepted-answer" })
     # print answer_element.prettify()
+    #this is the Error with this print statement
+    # encode return codecs.charmap_encode(input,errors,encoding_map)
+    # UnicodeEncodeError: 'charmap' codec can't encode character u'\u2013' in position 5888: character maps to <undefined>
     pre = answer_element.findAll("pre")
     code =[]
     for x in pre:
