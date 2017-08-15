@@ -16,11 +16,8 @@ def scrape(url):
     answer_element = soup.find("div", { "class" : "accepted-answer" })
     # print answer_element.prettify()
     pre = answer_element.findAll("pre")
-    code =[]
     for x in pre:
-        code.append(x.findAll("code"))
-    for x in code:
-        print x
+        print x.text
     return None
 
 search = raw_input("enter search string")
