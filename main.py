@@ -1,13 +1,13 @@
 import os, slackclient, time
 from bs4 import BeautifulSoup
-from google import google
 import requests
+import string 
 
 # delay in seconds before checking for new events
 SOCKET_DELAY = 1
 # slackbot environment variables
 
-
+search_url="default"
 VALET_SLACK_TOKEN='xoxb-227769392726-H7SOPPyTRn7K9dqNMRNhHAzq'
 VALET_SLACK_NAME="slack-test-bot"
 VALET_SLACK_ID='U6PNMBJMC'
@@ -16,7 +16,9 @@ valet_slack_client = slackclient.SlackClient(VALET_SLACK_TOKEN)
 
 def handle_message(message, user, channel):
     search_string = message + ' python -url"stack overflow"'
-    search_string.replace('<@U6PNMBJMC>','')
+    #search_string.replace("<@U6PNMBJMC>","")
+    search_string = remove_all("<@U6PNMBJMC>",search_string)
+    print search_string
     url = search_google(search_string)
     print "got url %s" % url
     code = scrape(url)
@@ -89,6 +91,14 @@ def scrape(url):
     # print answer_element.prettify()
     pre = answer_element.findAll("pre")
     return pre
+
+def remove_all(substr, str):
+    index = 0
+    length = len(substr)
+    while string.find(str, substr) != -1:
+        index = string.find(str, substr)
+        str = str[0:index] + str[index+length:]
+    return str
 
 if __name__=='__main__':
     run()
