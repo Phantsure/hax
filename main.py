@@ -1,16 +1,16 @@
-import os, slackclient, time
+import slackclient, time
 from bs4 import BeautifulSoup
 import requests
-import string 
+import string
 
 # delay in seconds before checking for new events
 SOCKET_DELAY = 1
 # slackbot environment variables
 
 search_url="default"
-VALET_SLACK_TOKEN='xoxb-227769392726-H7SOPPyTRn7K9dqNMRNhHAzq'
-VALET_SLACK_NAME="slack-test-bot"
-VALET_SLACK_ID='U6PNMBJMC'
+VALET_SLACK_TOKEN='YOUR API KEY'
+VALET_SLACK_NAME="YOUR BOT NAME"
+VALET_SLACK_ID='BOT ID'
 valet_slack_client = slackclient.SlackClient(VALET_SLACK_TOKEN)
 
 
@@ -18,9 +18,9 @@ def handle_message(message, user, channel):
     search_string = message + ' python -url"stack overflow"'
     #search_string.replace("<@U6PNMBJMC>","")
     search_string = remove_all("<@U6PNMBJMC>",search_string)
-    print search_string
+    #print search_string
     url = search_google(search_string)
-    print "got url %s" % url
+    #print "got url %s" % url
     code = scrape(url)
     if code !=None:
         for x in code:
@@ -35,7 +35,7 @@ def post_message(message, channel):
 
 def run():
     if valet_slack_client.rtm_connect():
-        print('[.] Valet de Machin is ON...')
+        print('[.] Slacker is ON...')
         while True:
             event_list = valet_slack_client.rtm_read()
             if len(event_list) > 0:
@@ -44,8 +44,8 @@ def run():
                         reply = event.get('text')
                         if reply == None:
                             reply="none"
-                        print reply
-                        print event.get('channel')
+                        #print reply
+                        #print event.get('channel')
                         if (("<@U6PNMBJMC>" in reply) or (event.get('channel') == "D6NPML7S7")) and (event.get('user') != VALET_SLACK_ID)  :
                             handle_message(message=event.get('text'), user=event.get('user'), channel=event.get('channel'))
             time.sleep(SOCKET_DELAY)
@@ -81,7 +81,7 @@ def search_google(search):
 	return url
 
 def scrape(url):
-    print "scraping"
+    #print "scraping"
     url_obj_data  = requests.get(url)
     url_text_data = url_obj_data.text
     soup = BeautifulSoup(url_text_data,'html.parser')
