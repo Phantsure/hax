@@ -8,15 +8,15 @@ SOCKET_DELAY = 1
 # slackbot environment variables
 
 search_url="default"
-VALET_SLACK_TOKEN='YOUR API KEY'
-VALET_SLACK_NAME="YOUR BOT NAME"
-VALET_SLACK_ID='BOT ID'
+VALET_SLACK_TOKEN='xoxb-230127440662-EvCpw7EbGumV4PiZKJFaOaMk'
+VALET_SLACK_NAME="slacker"
+VALET_SLACK_ID='U6S3RCYKG'
 valet_slack_client = slackclient.SlackClient(VALET_SLACK_TOKEN)
 
 
 def handle_message(message, user, channel):
     search_string = message + ' python -url"stack overflow"'
-    #search_string.replace("<@U6PNMBJMC>","")
+    #search_string.replace("<@U6S3RCYKG>","")
     search_string = remove_all("<@U6PNMBJMC>",search_string)
     #print search_string
     url = search_google(search_string)
